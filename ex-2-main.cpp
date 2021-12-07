@@ -12,6 +12,28 @@ namespace cpp2 {
 	public:
 		mcxi(std::string s) {
 			//mixi•¶š—ñ -> int ‚Ì•ÏŠ·ˆ—‚ğ‘‚­
+			for (auto pos = s.begin(); pos != s.end(); ++pos) {
+				if (*pos == '2'|| *pos == '3'|| *pos == '4'|| *pos == '5'|| 
+					*pos == '6'|| *pos == '7'|| *pos == '8'|| *pos == '9'){
+					switch (*pos) {
+					case '2': num = 2; break;
+					case '3': num = 3; break;
+					case '4': num = 4; break;
+					case '5': num = 5; break;
+					case '6': num = 6; break;
+					case '7': num = 7; break;
+					case '8': num = 8; break;
+					case '9': num = 9; break;
+					}
+				}else{
+					swirch(*pos) {
+					case 'm':num = 1000; break;
+					case 'c':num = 100; break;
+					case 'x':num = 10; break;
+					case 'i':num = 1; break;
+						}
+				}
+			}
 			std::cout << s << std::endl;
 			value_ = 0;
 		}
