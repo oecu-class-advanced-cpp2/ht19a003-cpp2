@@ -19,10 +19,22 @@ bool is_prime(int num) {
 	}
 	return true;
 }
-/*int gcd(int a, int b) {
+int gcd(int a, int b) {
 	int c;
-	while()
-}*/
+	while (b > 0) {
+		c = a%b;
+		a = b;
+		b = c;
+	}
+	/*if (a == 1) {
+		return a;
+	}*/
+	if (a != 1) {
+		cout << "この組み合わせは無効です";
+		return 0;
+	}
+	
+}
 
 /* --------------------------------------------------------------- */
 /*
@@ -48,6 +60,9 @@ int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
 		std::cout << "０以上の値を入力してください" << endl;
 		break;
 		}
+		if (gcd(e, l)) {
+			
+		}
 		if (e == 1) {
 			exit(-1);
 		}
@@ -64,7 +79,7 @@ int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
 	return e;
 }
 int main() {
-	std::cout << nth_prime(0, 0, 151) << std::endl;
+	std::cout << nth_prime(1, 1, 1) << std::endl;
 	// 以下、同様に、入出力例通りになるか確認せよ。
 	cin.get();
 	cin.get();
