@@ -1,9 +1,11 @@
 #include <iostream>
-#define CPP2_PRIME_UPPER_LIMIT 1000000 //’Tõ‚·‚é’l‚ÌãŒÀ’lB
+#include <string>
+#include <algorithm>
+#define CPP2_PRIME_UPPER_LIMIT 1000000 //æ¢ç´¢ã™ã‚‹å€¤ã®ä¸Šé™å€¤ã€‚
 using namespace std;
 /*
 *is_prime
-*—^‚¦‚ç‚ê‚½³‚Ì®”num‚ª‘f”‚È‚çtrue‚ğ•Ô‚·‚»‚¤‚Å‚È‚¯‚ê‚Îfaulse‚ğ•Ô‚·ŠÖ”
+*ä¸ãˆã‚‰ã‚ŒãŸæ­£ã®æ•´æ•°numãŒç´ æ•°ãªã‚‰trueã‚’è¿”ã™ãã†ã§ãªã‘ã‚Œã°faulseã‚’è¿”ã™é–¢æ•°
 */
 
 bool is_prime(int num) {
@@ -17,22 +19,35 @@ bool is_prime(int num) {
 	}
 	return true;
 }
+/*int gcd(int a, int b) {
+	int c;
+	while()
+}*/
+
 /* --------------------------------------------------------------- */
 /*
 * nth_prime
 *
-* —^‚¦‚ç‚ê‚½³®” a ‚Æ d ‚Æ n ‚É‘Î‚µ‚ÄA‚±‚Ì“™·”—ñ‚ÉŠÜ‚Ü‚ê‚é n ”Ô–Ú‚Ì
-* ‘f”‚ğ•Ô‚·B
+* ä¸ãˆã‚‰ã‚ŒãŸæ­£æ•´æ•° a ã¨ d ã¨ n ã«å¯¾ã—ã¦ã€ã“ã®ç­‰å·®æ•°åˆ—ã«å«ã¾ã‚Œã‚‹ n ç•ªç›®ã®
+* ç´ æ•°ã‚’è¿”ã™ã€‚
 *
-* TODO: ‚±‚Ì nth_prime ŠÖ”‚ğÀ‘•‚¹‚æB•K—v‚Å‚ ‚ê‚Î‘¼‚ÉŠÖ”‚â
-* ƒtƒ@ƒCƒ‹‚ğì¬‚¹‚æB
+* TODO: ã“ã® nth_prime é–¢æ•°ã‚’å®Ÿè£…ã›ã‚ˆã€‚å¿…è¦ã§ã‚ã‚Œã°ä»–ã«é–¢æ•°ã‚„
+* ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã›ã‚ˆã€‚
 */
 /* -------------------------------------------------------------- */
 
 int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
 	int count = 0;
 	int e = a;
+	int l = d;
+	int m = n;
+	
 	while (e < CPP2_PRIME_UPPER_LIMIT) {
+		
+		if (e <= 0 || l <= 0 || m <= 0) {
+		std::cout << "ï¼ä»¥ä¸Šã®å€¤ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„" << endl;
+		break;
+		}
 		if (e == 1) {
 			exit(-1);
 		}
@@ -49,8 +64,8 @@ int nth_prime(unsigned int a, unsigned int d, unsigned int n) {
 	return e;
 }
 int main() {
-	std::cout << nth_prime(367, 186, 151) << std::endl;
-	// ˆÈ‰ºA“¯—l‚ÉA“üo—Í—á’Ê‚è‚É‚È‚é‚©Šm”F‚¹‚æB
+	std::cout << nth_prime(0, 0, 151) << std::endl;
+	// ä»¥ä¸‹ã€åŒæ§˜ã«ã€å…¥å‡ºåŠ›ä¾‹é€šã‚Šã«ãªã‚‹ã‹ç¢ºèªã›ã‚ˆã€‚
 	cin.get();
 	cin.get();
 	return 0;
