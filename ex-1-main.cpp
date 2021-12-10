@@ -19,6 +19,11 @@ bool is_prime(int num) {
 	}
 	return true;
 }
+/*
+*gcd
+*与えられた2つの整数が互いに素か調べる関数
+*互いに素でなければ0を返す
+*/
 int gcd(int a, int b) {
 	int c;
 	while (b > 0) {
