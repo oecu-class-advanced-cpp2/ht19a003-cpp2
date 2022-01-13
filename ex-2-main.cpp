@@ -41,13 +41,43 @@ namespace cpp2 {
 			return rhs;
 		}
 		std::string to_string() {
-			return "xxx";
+			std::stringstream ss;
+
+			int value_ = 2000;
+			int q = value_ / 1000;
+			if (q == 1) {
+				ss << 'm';
+			}
+			if (q > 1) {
+				ss << q;
+				ss << 'm';
+			}
+
+			std::cout << ss.str() << std::endl;
+		}
+	private:
+		int unit() {
+			if (c == 'm')
+				return 1000;
+			if (c == 'c')
+				return 100;
+			if (c == 'x')
+				return 10;
+			if (c == 'i')
+				return 1;
 		}
 	private:
 		int value_;
-	};
+	}
 } // namespace cpp2
 int main() {
+	char c = 'a';
+	int i = 97;
+
+	std::cout << (int)t << std::endl;
+	std::cout << (char)i << std::endl;
+
+	/* 
 	cpp2::mcxi a0("xi");
 	cpp2::mcxi b0("x9i");
 	cpp2::mcxi result0 = a0 + b0;
@@ -60,8 +90,7 @@ int main() {
 	cpp2::mcxi b2("4c8x8i");
 	cpp2::mcxi result2 = a2 + b2;
 	std::cout << "6cx" << " " << result2.to_string() << std::endl;
-	3
-		cpp2::mcxi a3("m2ci");
+	cpp2::mcxi a3("m2ci");
 	cpp2::mcxi b3("4m7c9x8i");
 	cpp2::mcxi result3 = a3 + b3;
 	std::cout << "5m9c9x9i" << " " << result3.to_string() << std::endl;
@@ -88,5 +117,6 @@ int main() {
 	cpp2::mcxi a9("9m8c7xi");
 	cpp2::mcxi b9("c2x8i");
 	cpp2::mcxi result9 = a9 + b9;
-	std::cout << "9m9c9x9i" << " " << result9.to_string() << std::endl;
+	std::cout << "9m9c9x9i" << " " << result9.to_string() << std::endl; 
+	*/
 }
