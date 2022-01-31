@@ -1,122 +1,138 @@
 // ex_2_main.cpp
 #include <iostream>
 #include <string>
-namespace cpp2 {
+#include <sstream>
+namespace cpp2
+{
 	/* --------------------------------------------------------------------- */
 	/*
 	mcxi
 	mcxi 記法を解析するクラスです。
 	*/
 	/* --------------------------------------------------------------------- */
-	class mcxi {
+	class mcxi
+	{
 	public:
-		mcxi(std::string s) {
-			//mixi文字列 -> int の変換処理を書く
-			for (auto pos = s.begin(); pos != s.end(); ++pos) {
-				if (*pos == '2'|| *pos == '3'|| *pos == '4'|| *pos == '5'|| 
-					*pos == '6'|| *pos == '7'|| *pos == '8'|| *pos == '9'){
-					switch (*pos) {
-					case '2': num = 2; break;
-					case '3': num = 3; break;
-					case '4': num = 4; break;
-					case '5': num = 5; break;
-					case '6': num = 6; break;
-					case '7': num = 7; break;
-					case '8': num = 8; break;
-					case '9': num = 9; break;
-					}
-				}else{
-					swirch(*pos) {
-					case 'm':num = 1000; break;
-					case 'c':num = 100; break;
-					case 'x':num = 10; break;
-					case 'i':num = 1; break;
-						}
-				}
+		int value_;
+		int unit(char c)
+		{
+			switch (c)
+			{
+			case 'm':
+				return 1000;
+			case 'c':
+				return 100;
+			case 'x':
+				return 10;
+			case 'i':
+				return 1;
 			}
-			std::cout << s << std::endl;
-			value_ = 0;
 		}
-		mcxi operator+(mcxi rhs) {
-			return rhs;
+
+		mcxi operator+ (mcxi& rhs) {
+			mcxi nm("");
+			nm.value_ = value_ + rhs.value_;
+			return nm;
 		}
 		std::string to_string() {
-			std::stringstream ss;
+			std::string ss = "";
 
-			int value_ = 2000;
+			int num = value_;
 			int q = value_ / 1000;
 			if (q == 1) {
-				ss << 'm';
+				ss += 'm';
 			}
 			if (q > 1) {
-				ss << q;
-				ss << 'm';
+				ss += std::to_string(q);
+				ss += 'm';
 			}
-
-			std::cout << ss.str() << std::endl;
+			num %= 1000;
+			q = num / 100;
+			if (q == 1) {
+				ss += 'c';
+			}
+			if (q > 1) {
+				ss += std::to_string(q);
+				ss += 'c';
+			}
+			num %= 100;
+			q = num / 10;
+			if (q == 1) {
+				ss += 'x';
+			}
+			if (q > 1) {
+				ss += std::to_string(q);
+				ss += 'x';
+			}
+			num %= 10;
+			q = num;
+			if (q == 1) {
+				ss += 'i';
+			}
+			if (q > 1) {
+				ss += std::to_string(q);
+				ss += 'i';
+			}
+			//std::cout << ss << std::endl;
+			return ss;
 		}
-	private:
-		int unit() {
-			if (c == 'm')
-				return 1000;
-			if (c == 'c')
-				return 100;
-			if (c == 'x')
-				return 10;
-			if (c == 'i')
-				return 1;
+		mcxi(const std::string s) : value_(0)
+		{
+			//mcxi文字列 -> int の変換処理を書く
+			int num = 0;
+			for (auto pos = s.begin(); pos != s.end(); ++pos) {
+				if (*pos >= '2' && *pos <= '9') {
+					num = *pos - '0';
+				}
+				else if (*pos == 'm' || *pos == 'c' || *pos == 'x' || *pos == 'i') {
+					int u = unit(*pos);
+					value_ += std::max(num, 1) * u;
+					num = 0;
+				}
+				else {
+					std::cout << "exception" << std::endl;
+				}
+				//std::cout << s << std::endl;
+			}
+			if (s == this->to_string() && s != "") {
+				std::cout << s << std::endl;
+				std::cout << "order ok " << this->to_string() << std::endl;
+			}
+			else {
+				std::cout << "order no" << std::endl;
+			}
 		}
-	private:
-		int value_;
-	}
+	};
 } // namespace cpp2
-int main() {
-	char c = 'a';
-	int i = 97;
-
-	std::cout << (int)t << std::endl;
-	std::cout << (char)i << std::endl;
-
-	/* 
-	cpp2::mcxi a0("xi");
-	cpp2::mcxi b0("x9i");
+void test(std::string a, std::string b, std::string c) {
+	std::cout << a << " " << b << " " << c << std::endl;
+	std::cout << "a0処理" << std::endl;
+	cpp2::mcxi a0(a);
+	std::cout << "b0処理" << std::endl;
+	cpp2::mcxi b0(b);
+	std::cout << "result処理" << std::endl;
 	cpp2::mcxi result0 = a0 + b0;
-	std::cout << "3x" << " " << result0.to_string() << std::endl;
-	cpp2::mcxi a1("i");
-	cpp2::mcxi b1("9i");
-	cpp2::mcxi result1 = a1 + b1;
-	std::cout << "x" << " " << result1.to_string() << std::endl;
-	cpp2::mcxi a2("c2x2i");
-	cpp2::mcxi b2("4c8x8i");
-	cpp2::mcxi result2 = a2 + b2;
-	std::cout << "6cx" << " " << result2.to_string() << std::endl;
-	cpp2::mcxi a3("m2ci");
-	cpp2::mcxi b3("4m7c9x8i");
-	cpp2::mcxi result3 = a3 + b3;
-	std::cout << "5m9c9x9i" << " " << result3.to_string() << std::endl;
-	cpp2::mcxi a4("9c9x9i");
-	cpp2::mcxi b4("i");
-	cpp2::mcxi result4 = a4 + b4;
-	std::cout << "m" << " " << result4.to_string() << std::endl;
-	cpp2::mcxi a5("i");
-	cpp2::mcxi b5("9m9c9x8i");
-	cpp2::mcxi result5 = a5 + b5;
-	std::cout << "9m9c9x9i" << " " << result5.to_string() << std::endl;
-	cpp2::mcxi a6("m");
-	cpp2::mcxi b6("i");
-	cpp2::mcxi result6 = a6 + b6;
-	std::cout << "mi" << " " << result6.to_string() << std::endl;
-	cpp2::mcxi a7("i");
-	cpp2::mcxi b7("m");
-	cpp2::mcxi result7 = a7 + b7;
-	std::cout << "mi" << " " << result7.to_string() << std::endl;
-	cpp2::mcxi a8("m9i");
-	cpp2::mcxi b8("i");
-	cpp2::mcxi result8 = a8 + b8;
-	std::cout << "mx" << " " << result8.to_string() << std::endl;
-	cpp2::mcxi a9("9m8c7xi");
-	cpp2::mcxi b9("c2x8i");
-	cpp2::mcxi result9 = a9 + b9;
-	std::cout << "9m9c9x9i" << " " << result9.to_string() << std::endl; 
-	*/
+
+	if (result0.to_string() == c) {
+		std::cout << "ok" << std::endl;
+
+	}
+	else {
+		std::cout << "no" << std::endl;
+	}
+}
+int main()
+{
+	test("xi", "x9i", "3x");
+	test("i", "9i", "x");
+	test("c2x2i", "4c8x8i", "6cx");
+	test("m2ci", "4m7c9x8i", "5m9c9x9i");
+	test("9c9x9i", "i", "m");
+	test("i", "9m9c9x8i", "9m9c9x9i");
+	test("m", "i", "mi");
+	test("i", "m", "mi");
+	test("m9i", "i", "mx");
+	test("9m8c7xi", "c2x8i", "9m9c9x9i");
+	test("9s", "ce", "1");
+	test("9x9i9m9c", "2i1c", "9");
 }
